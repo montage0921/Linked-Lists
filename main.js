@@ -73,12 +73,12 @@ class LinkedList {
     //case: only contains a head node
     if (index == 1) return node.value;
     //case: user enter 0, index begins from 1;
-    if (index == 0) return "index should start from 1!";
+    if (index == 0) throw new Error("index should start from 1!");
     //case: empty link
-    if (this.#headNode == null) return "empty link";
+    if (this.#headNode == null) throw new Error("empty list");
     //case: index exceeds size of the list
     if (index > this.#sizeCounter)
-      return `exceed size of the linked list (${this.#sizeCounter})`;
+      throw new Error(`exceed size of the linked list (${this.#sizeCounter})`);
 
     while (count !== index) {
       node = this.#nextNode(node);
@@ -185,8 +185,9 @@ class LinkedList {
 
     //index error
     if (index < 1 || index > this.#sizeCounter + 1) {
-      console.log("wrong index");
-      return;
+      throw new Error(
+        `Wrong Index! Index should be 1 to ${this.#sizeCounter + 1}`
+      );
     }
 
     if (index == 1) this.prepend(value);
@@ -217,8 +218,7 @@ class LinkedList {
 
     //index error
     if (index < 1 || index > this.#sizeCounter) {
-      console.log("wrong index");
-      return;
+      throw new Error(`Wrong Index! Index should be 1 to ${this.#sizeCounter}`);
     }
 
     if (index == 1) {
@@ -252,7 +252,8 @@ newLinkedList.append(100); //index 2
 
 newLinkedList.append(102); // index 3
 
-newLinkedList.removeAt(1);
+newLinkedList.insertAt(200, 4);
 
+console.log(newLinkedList.find(201));
 console.log(newLinkedList.toString());
 console.log(newLinkedList);
