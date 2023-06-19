@@ -66,9 +66,6 @@ class LinkedList {
 
   // returns the node at the given index
   at(index) {
-    let node = this.#headNode;
-    let count = 1;
-
     //HANDLING SPECIAL CASES
     //case: only contains a head node
     if (index == 1) return node.value;
@@ -79,6 +76,9 @@ class LinkedList {
     //case: index exceeds size of the list
     if (index > this.#sizeCounter)
       throw new Error(`exceed size of the linked list (${this.#sizeCounter})`);
+
+    let node = this.#headNode;
+    let count = 1;
 
     while (count !== index) {
       node = this.#nextNode(node);
@@ -97,6 +97,8 @@ class LinkedList {
   pop() {
     let node = this.#headNode;
     let count = 1;
+
+    if (!node) return;
 
     while (count < this.#sizeCounter - 1) {
       node = this.#nextNode(node);
