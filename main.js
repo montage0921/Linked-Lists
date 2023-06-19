@@ -129,6 +129,8 @@ class LinkedList {
         return true;
       }
     }
+
+    return;
   }
 
   //returns the index of the node containing value, or null if not found
@@ -167,6 +169,72 @@ class LinkedList {
 
       if (!node) return (valueString += `null`);
     }
+
+    return;
+  }
+
+  //inserts a new node with the provided value at the given index
+  insertAt(value, index) {
+    const newNode = new Node(value);
+
+    let node = this.#headNode;
+    let count = 1;
+
+    let temporaryNodeStorage;
+    let lastNode;
+
+    //index error
+    if (index < 1 || index > this.#sizeCounter + 1) {
+      console.log("wrong index");
+      return;
+    }
+
+    if (index == 1) this.prepend(value);
+    else if (index == this.#sizeCounter + 1) this.append(value);
+    else {
+      while (count !== index) {
+        lastNode = node; //2
+        node = this.#nextNode(node);
+        count++;
+      }
+
+      temporaryNodeStorage = node; //100
+      console.log(temporaryNodeStorage);
+      lastNode.nextNode = newNode;
+
+      newNode.nextNode = temporaryNodeStorage;
+      this.#sizeCounter++;
+    }
+  }
+
+  //remove value at the index
+  removeAt(index) {
+    let node = this.#headNode;
+    let count = 1;
+
+    let nodeBefore;
+    let nodeAfter;
+
+    //index error
+    if (index < 1 || index > this.#sizeCounter) {
+      console.log("wrong index");
+      return;
+    }
+
+    if (index == 1) {
+      nodeAfter = node.nextNode;
+      this.#headNode = nodeAfter;
+      return;
+    }
+
+    while (count != index) {
+      nodeBefore = node; //2
+      node = this.#nextNode(node); //100
+      nodeAfter = node.nextNode; // 102
+      count++; //2
+    }
+
+    nodeBefore.nextNode = nodeAfter;
   }
 }
 
@@ -178,12 +246,13 @@ class Node {
 
 const newLinkedList = new LinkedList();
 
-newLinkedList.prepend(2);
+newLinkedList.prepend(2); //index 1
 
-newLinkedList.append(100);
+newLinkedList.append(100); //index 2
 
-newLinkedList.append(102);
-newLinkedList.append(101);
+newLinkedList.append(102); // index 3
+
+newLinkedList.removeAt(1);
 
 console.log(newLinkedList.toString());
 console.log(newLinkedList);
